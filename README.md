@@ -522,7 +522,7 @@ Training results:
 | Validation Loss | 4.8124 | 3.1889 |
 | Validation Perplexity | 123.03 | 24.26 |
 
-The training and validation losses decreased steadily, indicating that the reproduced Transformer model successfully learned useful sequence-to-sequence mappings on the Multi30k English-German translation task.
+训练过程中 loss 持续下降，验证集 perplexity 明显降低，说明模型能够学习英德翻译任务中的序列映射关系。
 
 Loss curve:
 
