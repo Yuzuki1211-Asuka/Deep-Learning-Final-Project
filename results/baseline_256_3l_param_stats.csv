@@ -1,0 +1,12 @@
+module,total_params,trainable_params
+Source Embedding,1515776,1515776
+Target Embedding,2011904,2011904
+Multi-Head Attention,2363904,2363904
+Feed Forward Network,1580544,1580544
+Other Encoder Parameters,512,512
+Other Decoder Parameters,512,512
+Output Projection,2011904,2011904
+Encoder Total,3094528,3094528
+Decoder Total,4378624,4378624
+Output Projection Total,2011904,2011904
+Model Total,9485056,9485056

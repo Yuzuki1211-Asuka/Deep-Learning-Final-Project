@@ -1,0 +1,86 @@
+{
+  "checkpoint": "checkpoints/baseline_256_3l_best.pt",
+  "config": {
+    "data_path": "data/processed/multi30k_en_de.pkl",
+    "checkpoint_dir": "checkpoints",
+    "result_dir": "results",
+    "batch_size": 64,
+    "epochs": 10,
+    "lr": 0.0001,
+    "d_model": 256,
+    "d_word_vec": 256,
+    "d_inner": 512,
+    "n_layers": 3,
+    "n_head": 8,
+    "d_k": 32,
+    "d_v": 32,
+    "dropout": 0.1,
+    "n_position": 100,
+    "max_grad_norm": 1.0,
+    "num_workers": 2,
+    "seed": 42,
+    "use_amp": false,
+    "save_name": "baseline_256_3l"
+  },
+  "src_vocab_size": 5921,
+  "trg_vocab_size": 7859,
+  "total_params": 9485056,
+  "trainable_params": 9485056,
+  "module_stats": [
+    {
+      "module": "Source Embedding",
+      "total_params": 1515776,
+      "trainable_params": 1515776
+    },
+    {
+      "module": "Target Embedding",
+      "total_params": 2011904,
+      "trainable_params": 2011904
+    },
+    {
+      "module": "Multi-Head Attention",
+      "total_params": 2363904,
+      "trainable_params": 2363904
+    },
+    {
+      "module": "Feed Forward Network",
+      "total_params": 1580544,
+      "trainable_params": 1580544
+    },
+    {
+      "module": "Other Encoder Parameters",
+      "total_params": 512,
+      "trainable_params": 512
+    },
+    {
+      "module": "Other Decoder Parameters",
+      "total_params": 512,
+      "trainable_params": 512
+    },
+    {
+      "module": "Output Projection",
+      "total_params": 2011904,
+      "trainable_params": 2011904
+    },
+    {
+      "module": "Encoder Total",
+      "total_params": 3094528,
+      "trainable_params": 3094528
+    },
+    {
+      "module": "Decoder Total",
+      "total_params": 4378624,
+      "trainable_params": 4378624
+    },
+    {
+      "module": "Output Projection Total",
+      "total_params": 2011904,
+      "trainable_params": 2011904
+    },
+    {
+      "module": "Model Total",
+      "total_params": 9485056,
+      "trainable_params": 9485056
+    }
+  ]
+}
