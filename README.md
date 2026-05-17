@@ -540,11 +540,11 @@ figures/baseline_256_3l_loss_curve.png
 | baseline_256_3l | 256 | 3 | 8 | 9,485,056 | 3.1889 | 24.26 | about 24s |
 | deeper_256_4l | 256 | 4 | 8 | 10,799,872 | 3.3309 | 27.96 | about 29.3s |
 
-Analysis:
+实验分析：
 
-1. `small_128_2l` has the fewest parameters and the fastest training speed, but its validation loss is the highest. This suggests that a smaller model has weaker representation ability.
-2. `baseline_256_3l` achieves the lowest validation loss and the best validation perplexity among the three settings. It provides the best trade-off between model size, training time, and performance.
-3. `deeper_256_4l` has more parameters and requires more training time, but it does not outperform the baseline within 10 epochs. This suggests that a deeper model is not always better under limited training epochs and a simple learning rate schedule.
+1. small_128_2l 参数量最少，训练速度最快，但验证集 loss 最高，说明模型表达能力较弱。 
+2. baseline_256_3l 取得最低的验证集 loss，说明该配置在模型规模、训练时间和效果之间较为平衡。 
+3. deeper_256_4l 参数量更多，训练时间更长，但 10 个 epoch 内没有超过 baseline，说明在训练轮数有限和学习率策略较简单的情况下，模型变深不一定带来更好效果。
 
 ---
 
@@ -575,17 +575,16 @@ Analysis:
 
 Analysis:
 
-- The source embedding parameter count is determined by source vocabulary size and `d_model`.
-- The target embedding and output projection contain many parameters because the German target vocabulary is larger.
-- Multi-Head Attention parameters mainly come from Q, K, V projections and the output projection.
-- Feed Forward Network parameters are determined by `d_model` and `d_inner`.
-- The Decoder has more parameters than the Encoder because each decoder layer contains both masked self-attention and encoder-decoder attention.
+- Embedding 层参数量与词表大小和 d_model 直接相关； 
+- Multi-Head Attention 参数量主要来自 Q、K、V 和输出投影矩阵； 
+- Feed Forward Network 参数量与 d_model 和 d_inner 有关； 
+- Decoder 参数量大于 Encoder，因为 Decoder 除了 self-attention，还包含 encoder-decoder attention。
 
 ---
 
 ## 12. Translation Examples
 
-Some test set predictions from the baseline model are shown below.
+部分测试集预测结果如下:
 
 | English Input | German Reference | Model Prediction |
 |---|---|---|
@@ -594,39 +593,38 @@ Some test set predictions from the baseline model are shown below.
 | a girl in karate uniform breaking a stick with a front kick . | ein mädchen in einem karateanzug bricht ein brett mit einem tritt . | ein mädchen in einem steht auf einem . |
 | five people wearing winter jackets and helmets stand in the snow , with snowmobiles in the background . | fünf leute in winterjacken und mit helmen stehen im schnee mit schneemobilen im hintergrund . | mehrere personen in und stehen auf dem boden und schauen sich auf dem boden . |
 
-Analysis:
+结果分析:
 
-- The model can generate German-like sentence structures.
-- It learns some high-frequency words and simple sentence patterns.
-- It still struggles with long sentences and detailed visual descriptions.
-- Some predictions contain repeated phrases or generic templates.
-- Possible reasons include limited epochs, greedy decoding, no beam search, and relatively simple learning rate scheduling.
+- 模型能够生成德语形式的句子，并学到部分常见词汇和短语； 
+- 对于简单结构，模型能生成较合理的结果； 
+- 对于复杂句子或细节描述，模型容易生成高频模板句； 
+- 由于只训练 10 个 epoch，并且使用 greedy decoding，没有使用 beam search，因此预测质量仍有提升空间。
 
 ---
 
 ## 13. Problems and Solutions
 
-### 13.1 AMP Overflow Problem
+### 13.1 AMP 半精度训练溢出
 
-During early training, the following error occurred:
+训练时曾出现如下错误:
 
 ```text
 RuntimeError: value cannot be converted to type at::Half without overflow
 ```
 
-Reason:
+原因:
 
-The attention mask in the original implementation uses:
+原始 attention mask 使用了:
 
 ```python
 -1e9
 ```
 
-This value may overflow under FP16 mixed precision training.
+该数值在 FP16 半精度下超出表示范围.
 
-Solution:
+解决方法:
 
-Use FP32 training by adding:
+使用 FP32 训练:
 
 ```bash
 --no-amp
@@ -636,21 +634,11 @@ Use FP32 training by adding:
 
 ### 13.2 Compatibility with Old TorchText APIs
 
-The original project depends on older `torchtext` APIs, which may not be compatible with the current Python and PyTorch environment.
+原仓库的数据处理和训练流程依赖较旧版本的 torchtext，在当前 Python 3.12 和 PyTorch 2.5 环境下可能不兼容。
 
-Solution:
+解决方法:
 
-This project keeps the model implementation and rewrites the following parts:
-
-- data preprocessing;
-- dataloader construction;
-- training loop;
-- validation loop;
-- loss logging;
-- parameter counting;
-- prediction generation.
-
-This makes the project easier to run, explain, and analyze in the course setting.
+我们组保留 transformer/ 模型代码，重写数据处理、训练、绘图、参数统计和预测脚本，这样既保留了 Transformer 核心结构，又提高了代码可运行性和可解释性。
 
 ---
 
@@ -698,13 +686,13 @@ Although the project has completed the main course requirements, there are still
 
 ## 16. Conclusion
 
-In this project, we reproduced the Transformer model based on a PyTorch implementation and adapted it for a deep learning course project. We completed the core Transformer modules, including Scaled Dot-Product Attention, Multi-Head Attention, Encoder, Decoder, Positional Encoding, Feed Forward Network, and mask mechanisms.
+在本项目中，我们基于 PyTorch 实现重现了 Transformer 模型，并将其改编为深度学习课程项目。我们完成了 Transformer 的核心模块，包括缩放点积注意力、多头注意力、编码器、解码器、位置编码、前馈网络以及掩码机制。
 
-We trained the model on the Multi30k English-German translation dataset and obtained real training and validation results. The baseline model achieved a best validation loss of 3.1889 after 10 epochs. We also compared three different model sizes and analyzed the relationship between parameter count, training time, and model performance.
+我们使用Multi30k英德翻译数据集对模型进行了训练，并获得了实际的训练和验证结果。基准模型在经过10个训练周期后，验证损失达到了3.1889的最佳值。此外，我们还对比了三种不同规模的模型，并分析了参数数量、训练时间与模型性能之间的关系。
 
-The experimental results show that a larger model generally has stronger representation ability, but a deeper model does not necessarily perform better under limited training epochs. The baseline model provides the best balance among parameter count, training speed, and validation performance in our experiments.
+实验结果表明，更大的模型通常具有更强的表征能力，但在训练轮数有限的情况下，更深的模型并不一定表现更好。在我们的实验中，基线模型在参数数量、训练速度和验证性能之间实现了最佳平衡。
 
-This project helped us understand the internal structure of Transformer, the implementation of attention mechanisms, the training process of sequence-to-sequence models, and the practical relationship between model scale and experimental performance.
+该项目帮助我们理解了Transformer的内部结构、注意力机制的实现、序列到序列模型的训练过程，以及模型规模与实验性能之间的实际关系。
 
 ---
 
