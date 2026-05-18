@@ -671,16 +671,16 @@ This project has completed the following requirements:
 
 ## 15. Limitations and Future Work
 
-Although the project has completed the main course requirements, there are still several possible improvements:
+尽管该项目已满足课程的主要要求，但仍有以下几点改进空间：
 
-1. Add BLEU score evaluation;
-2. Add beam search decoding;
-3. Use the original Transformer learning rate warmup schedule;
-4. Train for more epochs;
-5. Add attention weight visualization;
-6. Try larger datasets such as IWSLT;
-7. Improve tokenizer and vocabulary construction;
-8. Compare more hyperparameters such as dropout, batch size, and learning rate.
+1.添加 BLEU 分数评估；
+2.添加束搜索解码；
+3.使用原始 Transformer 的学习率预热方案；
+4.增加训练轮数；
+5.添加注意力权重可视化；
+6.尝试使用更大的数据集，例如 IWSLT；
+7.改进分词器和词汇表构建；
+8.比较更多超参数，例如dropout、批量大小和学习率。
 
 ---
 
