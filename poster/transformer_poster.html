@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transformer 学术海报</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --card: #161d2e;
+    --accent: #3b82f6;
+    --accent2: #06b6d4;
+    --accent3: #8b5cf6;
+    --gold: #f59e0b;
+    --text: #e8edf5;
+    --text-muted: #94a3b8;
+    --border: rgba(59,130,246,0.18);
+    --glow: rgba(59,130,246,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans SC', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 30px 20px;
+  }
+
+  .poster {
+    width: 960px;
+    max-width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.7), 0 0 0 1px rgba(59,130,246,0.08);
+    position: relative;
+  }
+
+  /* Background grid */
+  .poster::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    padding: 48px 52px 40px;
+    background: linear-gradient(135deg, #0d1526 0%, #111e35 50%, #0d1526 100%);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), var(--accent3), transparent);
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(59,130,246,0.12);
+    border: 1px solid rgba(59,130,246,0.3);
+    color: var(--accent2);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 22px;
+  }
+
+  .header-badge::before {
+    content: '●';
+    color: var(--accent);
+    font-size: 8px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .main-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 3px;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  .sub-title {
+    font-size: 15px;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    margin-bottom: 28px;
+  }
+
+  .meta-row {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .meta-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .meta-value {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: 0.5px;
+  }
+
+  /* ── ABSTRACT ── */
+  .abstract-bar {
+    background: linear-gradient(90deg, rgba(59,130,246,0.15), rgba(6,182,212,0.08));
+    border-left: 3px solid var(--accent);
+    padding: 20px 52px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .abstract-bar p {
+    font-size: 13.5px;
+    line-height: 2.1;
+    letter-spacing: 0.8px;
+    color: #c8d5e8;
+    font-weight: 300;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .content {
+    padding: 36px 52px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+  }
+
+  .section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px 22px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .section.blue::before { background: linear-gradient(90deg, var(--accent), transparent); }
+  .section.cyan::before { background: linear-gradient(90deg, var(--accent2), transparent); }
+  .section.purple::before { background: linear-gradient(90deg, var(--accent3), transparent); }
+  .section.gold::before { background: linear-gradient(90deg, var(--gold), transparent); }
+
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .section.blue .section-num { color: var(--accent); }
+  .section.cyan .section-num { color: var(--accent2); }
+  .section.purple .section-num { color: var(--accent3); }
+  .section.gold .section-num { color: var(--gold); }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #fff;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .section p {
+    font-size: 12.5px;
+    line-height: 2.0;
+    letter-spacing: 0.6px;
+    color: #a8bbd4;
+    font-weight: 300;
+  }
+
+  .section p + p {
+    margin-top: 10px;
+  }
+
+  /* span full width */
+  .section.wide {
+    grid-column: span 2;
+  }
+  .section.full {
+    grid-column: span 3;
+  }
+
+  /* ── FORMULA BOX ── */
+  .formula-box {
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(59,130,246,0.2);
+    border-radius: 6px;
+    padding: 14px 16px;
+    margin-top: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: #93c5fd;
+    line-height: 1.9;
+    letter-spacing: 0.4px;
+  }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    font-size: 11.5px;
+  }
+
+  .compare-table th {
+    background: rgba(59,130,246,0.12);
+    color: var(--accent2);
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+  }
+
+  .compare-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: #a8bbd4;
+    line-height: 1.7;
+    letter-spacing: 0.4px;
+    vertical-align: top;
+  }
+
+  .compare-table tr:hover td {
+    background: rgba(59,130,246,0.04);
+  }
+
+  .compare-table .highlight {
+    color: #67e8f9;
+    font-weight: 500;
+  }
+
+  /* ── METRICS ROW ── */
+  .metrics {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .metric-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 18px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .metric-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(59,130,246,0.08), transparent 70%);
+    pointer-events: none;
+  }
+
+  .metric-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .metric-unit {
+    font-size: 14px;
+    color: var(--accent2);
+    font-weight: 400;
+  }
+
+  .metric-desc {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    letter-spacing: 0.8px;
+    line-height: 1.6;
+    margin-top: 8px;
+  }
+
+  /* ── TAG PILLS ── */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .tag {
+    font-size: 10.5px;
+    letter-spacing: 0.8px;
+    padding: 5px 11px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  .tag.blue { background: rgba(59,130,246,0.12); color: #93c5fd; border: 1px solid rgba(59,130,246,0.25); }
+  .tag.cyan { background: rgba(6,182,212,0.12); color: #67e8f9; border: 1px solid rgba(6,182,212,0.25); }
+  .tag.purple { background: rgba(139,92,246,0.12); color: #c4b5fd; border: 1px solid rgba(139,92,246,0.25); }
+  .tag.gold { background: rgba(245,158,11,0.12); color: #fcd34d; border: 1px solid rgba(245,158,11,0.25); }
+
+  /* ── ARCH DIAGRAM ── */
+  .arch-diagram {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .arch-layer {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 6px;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .arch-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .arch-layer-name {
+    font-size: 11px;
+    color: #cbd5e1;
+    letter-spacing: 0.8px;
+    font-weight: 500;
+  }
+
+  .arch-layer-desc {
+    font-size: 10.5px;
+    color: #64748b;
+    letter-spacing: 0.4px;
+    margin-left: auto;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: #0a0f1c;
+    border-top: 1px solid var(--border);
+    padding: 18px 52px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    line-height: 1.7;
+  }
+
+  .footer-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(59,130,246,0.5);
+    letter-spacing: 1.5px;
+  }
+
+  .ref-list {
+    font-size: 11px;
+    color: #64748b;
+    line-height: 2.0;
+    letter-spacing: 0.5px;
+    margin-top: 12px;
+  }
+
+  .ref-list span {
+    display: block;
+  }
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-badge">计算机科学 &amp; 人工智能 · 论文解读</div>
+    <div class="main-title">Attention Is All You Need</div>
+    <div class="sub-title">Transformer 模型架构详解 —— 自注意力机制与序列建模的革命</div>
+    <div class="meta-row">
+      <div class="meta-item">
+        <span class="meta-label">原论文作者</span>
+        <span class="meta-value">Vaswani et al.（Google Brain）</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">发表年份</span>
+        <span class="meta-value">2017 · NeurIPS</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">课程</span>
+        <span class="meta-value">计算机科学 / 深度学习</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">海报类型</span>
+        <span class="meta-value">学术论文解读</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABSTRACT -->
+  <div class="abstract-bar">
+    <p>
+      Transformer 提出了一种完全基于注意力机制的序列建模架构，彻底摒弃 RNN 与 CNN 结构。该设计消除了循环计算的顺序瓶颈，实现对序列任意位置间依赖的直接建模，极大提升并行计算能力。在 WMT 2014 英德翻译任务中取得 BLEU 28.4 的当时最优成绩，仅用 8 块 P100 GPU 训练 12 小时完成。
+    </p>
+  </div>
+
+  <!-- MAIN CONTENT GRID -->
+  <div class="content">
+
+    <!-- 实验成果 metrics -->
+    <div class="metrics">
+      <div class="metric-card">
+        <div class="metric-value">28.4 <span class="metric-unit">BLEU</span></div>
+        <div class="metric-desc">WMT 2014<br>英德翻译（超越此前最优 +2）</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">41.8 <span class="metric-unit">BLEU</span></div>
+        <div class="metric-desc">WMT 2014<br>英法翻译（单模型最优）</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">12 <span class="metric-unit">小时</span></div>
+        <div class="metric-desc">8 × P100 GPU<br>达到当时 SOTA 训练时间</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">O(1) <span class="metric-unit">路径</span></div>
+        <div class="metric-desc">任意两位置间<br>最大依赖路径长度</div>
+      </div>
+    </div>
+
+    <!-- 背景与动机 -->
+    <div class="section blue">
+      <div class="section-num">01 / BACKGROUND</div>
+      <div class="section-title">研究背景与动机</div>
+      <p>
+        Transformer 提出前，序列建模的主流方法为 RNN 及其变体 LSTM/GRU。这些模型在时间步 t 的输出必须依赖 t-1 步结果，导致<strong style="color:#93c5fd">无法并行计算</strong>，随序列增长训练速度受限明显。
+      </p>
+      <p>
+        注意力机制虽已被引入（Bahdanau 2014），但仍与 RNN 结合使用。CNN 可并行但感受野有限，远距离依赖需堆叠多层才能覆盖。
+      </p>
+      <div class="tags">
+        <span class="tag blue">顺序瓶颈</span>
+        <span class="tag blue">长距离依赖</span>
+        <span class="tag blue">并行化受限</span>
+      </div>
+    </div>
+
+    <!-- 架构概览 -->
+    <div class="section cyan">
+      <div class="section-num">02 / ARCHITECTURE</div>
+      <div class="section-title">整体架构设计</div>
+      <p>Transformer 采用编码器-解码器结构，各由 N=6 层堆叠组成，每层包含两个子层：</p>
+      <div class="arch-diagram">
+        <div class="arch-layer">
+          <div class="arch-dot" style="background:#3b82f6"></div>
+          <span class="arch-layer-name">多头自注意力（Multi-Head Self-Attention）</span>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-dot" style="background:#06b6d4"></div>
+          <span class="arch-layer-name">前馈网络（Position-wise FFN）</span>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-dot" style="background:#8b5cf6"></div>
+          <span class="arch-layer-name">编码器-解码器注意力（Cross-Attention）</span>
+        </div>
+        <div class="arch-layer">
+          <div class="arch-dot" style="background:#f59e0b"></div>
+          <span class="arch-layer-name">残差连接 + 层归一化（Add &amp; Norm）</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 位置编码 -->
+    <div class="section purple">
+      <div class="section-num">03 / POSITION</div>
+      <div class="section-title">位置编码机制</div>
+      <p>
+        由于模型无循环结构，对序列位置无感知能力，因此引入位置编码（Positional Encoding），与词嵌入相加送入网络。
+      </p>
+      <p>原论文采用正弦 / 余弦编码：</p>
+      <div class="formula-box">
+        PE(pos, 2i)   = sin(pos / 10000^(2i/d))<br>
+        PE(pos, 2i+1) = cos(pos / 10000^(2i/d))
+      </div>
+      <div class="tags">
+        <span class="tag purple">固定函数</span>
+        <span class="tag purple">可学习嵌入</span>
+        <span class="tag purple">RoPE / ALiBi</span>
+      </div>
+    </div>
+
+    <!-- 注意力机制 wide -->
+    <div class="section blue wide">
+      <div class="section-num">04 / ATTENTION</div>
+      <div class="section-title">缩放点积注意力 与 多头注意力</div>
+      <p>
+        <strong style="color:#93c5fd">缩放点积注意力</strong>：输入查询矩阵 Q、键矩阵 K、值矩阵 V，先计算点积并除以 √d_k 进行缩放（防止梯度消失），Softmax 后乘以 V 得到加权输出。
+      </p>
+      <div class="formula-box">
+        Attention(Q, K, V) = softmax( Q · Kᵀ / √d_k ) · V
+      </div>
+      <p style="margin-top:12px">
+        <strong style="color:#93c5fd">多头注意力</strong>：将 Q、K、V 投影到 h 组不同子空间（d_k = d_model / h），每组独立执行注意力计算后拼接，再经线性变换还原维度。不同头可关注不同的子空间与位置关系，综合多种注意力模式，且总计算量与单头相当（h=8, d_k=64）。
+      </p>
+      <div class="tags">
+        <span class="tag blue">Q / K / V 矩阵</span>
+        <span class="tag blue">缩放因子 √d_k</span>
+        <span class="tag blue">8 个注意力头</span>
+        <span class="tag cyan">Masked Self-Attention</span>
+        <span class="tag cyan">Cross-Attention</span>
+      </div>
+    </div>
+
+    <!-- RNN vs Transformer -->
+    <div class="section gold full">
+      <div class="section-num">05 / COMPARISON</div>
+      <div class="section-title">Transformer vs RNN / LSTM / GRU 对比</div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>特征维度</th>
+            <th>RNN / LSTM / GRU</th>
+            <th>Transformer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>并行计算</td>
+            <td>❌ 逐时间步递归，无法并行</td>
+            <td class="highlight">✅ 全序列同时计算，高度并行</td>
+          </tr>
+          <tr>
+            <td>长距离依赖</td>
+            <td>路径长度 = n，需逐步传递，LSTM 门控缓解但未解决</td>
+            <td class="highlight">路径长度 = 1，自注意力直连任意两点</td>
+          </tr>
+          <tr>
+            <td>计算复杂度</td>
+            <td>O(n · d²)，需 O(n) 顺序步</td>
+            <td class="highlight">O(n² · d)，仅需 O(1) 顺序步（n &lt; d 时更优）</td>
+          </tr>
+          <tr>
+            <td>梯度传播</td>
+            <td>易梯度消失 / 爆炸，门控缓解</td>
+            <td class="highlight">残差连接 + LayerNorm，梯度传播稳定</td>
+          </tr>
+          <tr>
+            <td>内存开销</td>
+            <td class="highlight">O(n)，内存友好</td>
+            <td>O(n²) 注意力矩阵，超长序列受限</td>
+          </tr>
+          <tr>
+            <td>实际性能</td>
+            <td>适合短序列 / 在线生成，训练较慢</td>
+            <td class="highlight">大规模 NLP 任务 SOTA，比等规模 LSTM 快 3–4 倍</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 影响与局限 -->
+    <div class="section purple wide">
+      <div class="section-num">06 / IMPACT</div>
+      <div class="section-title">主要贡献、局限与长远影响</div>
+      <p>
+        Transformer 开创了 NLP 的新纪元，"预训练 + 微调"范式的基础：<strong style="color:#c4b5fd">BERT</strong> 使用编码器，<strong style="color:#c4b5fd">GPT 系列</strong> 使用解码器，大规模语言模型均以此为基。后续 RoPE、ALiBi、稀疏注意力（BigBird、Linformer）、Transformers-XL 等均是对其直接扩展。
+      </p>
+      <p>
+        <strong style="color:#f87171">主要局限</strong>：注意力矩阵随序列长度平方增长（O(n²)），超长文本内存压力大（BERT 常限制 512 token）；全局平均操作可能降低表示分辨率，需多头设计缓解。
+      </p>
+      <div class="tags">
+        <span class="tag purple">BERT</span>
+        <span class="tag purple">GPT-4</span>
+        <span class="tag purple">大模型预训练</span>
+        <span class="tag cyan">高效注意力</span>
+        <span class="tag cyan">相对位置编码</span>
+      </div>
+    </div>
+
+    <!-- 参考文献 -->
+    <div class="section cyan">
+      <div class="section-num">07 / REFERENCES</div>
+      <div class="section-title">主要参考文献</div>
+      <div class="ref-list">
+        <span>[1] Vaswani et al. Attention Is All You Need. NeurIPS 2017.</span>
+        <span>[2] Bahdanau et al. Neural Machine Translation by Jointly Learning to Align and Translate. ICLR 2015.</span>
+        <span>[3] Devlin et al. BERT: Pre-training of Deep Bidirectional Transformers. NAACL 2019.</span>
+        <span>[4] Brown et al. Language Models are Few-Shot Learners (GPT-3). NeurIPS 2020.</span>
+        <span>[5] Su et al. RoFormer: Enhanced Transformer with Rotary Position Embedding. 2021.</span>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      课程作业海报 · 计算机科学 / 人工智能<br>
+      论文原文：Vaswani et al., NeurIPS 2017
+    </div>
+    <div class="footer-right">TRANSFORMER · ATTENTION IS ALL YOU NEED</div>
+  </div>
+
+</div>
+</body>
+</html>
